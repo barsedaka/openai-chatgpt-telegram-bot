@@ -20,24 +20,16 @@ import org.telegram.telegrambots.api.objects.Update;
 @RequestMapping("/api/telegram")
 public class Controller {
 
-    private final UserRepository userRepository;
     private final TelegramRequestService telegramRequestService;
-
     private final TelegramChatMessageDTOMapper telegramChatMessageDTOMapper;
-
     private static final Logger logger = LogManager.getLogger("controller-logger");
 
 
-    public Controller(UserRepository userRepository, TelegramRequestService telegramRequestService, TelegramChatMessageDTOMapper telegramChatMessageDTOMapper) {
-        this.userRepository = userRepository;
+    public Controller(TelegramRequestService telegramRequestService, TelegramChatMessageDTOMapper telegramChatMessageDTOMapper) {
         this.telegramRequestService = telegramRequestService;
         this.telegramChatMessageDTOMapper = telegramChatMessageDTOMapper;
     }
 
-    @PostMapping("/a")
-    public void add() {
-        userRepository.save(new UserEntity("bars", "bar", "s", "bar@gmail.com", 2L));
-    }
 
     @PostMapping("/createAnswer")
     public ResponseEntity<TelegramChatResponseDTO> createAnswer(@RequestBody Update request) throws Exception {
