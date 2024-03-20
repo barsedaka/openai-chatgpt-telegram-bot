@@ -2,10 +2,9 @@ package com.bar.controller;
 
 import com.bar.dto.TelegramChatMessageDTO;
 import com.bar.dto.TelegramChatResponseDTO;
-import com.bar.entity.UserEntity;
 import com.bar.mapper.TelegramChatMessageDTOMapper;
-import com.bar.repository.UserRepository;
 import com.bar.service.TelegramRequestService;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -17,18 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.telegram.telegrambots.api.objects.Update;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/telegram")
 public class Controller {
 
     private final TelegramRequestService telegramRequestService;
     private final TelegramChatMessageDTOMapper telegramChatMessageDTOMapper;
     private static final Logger logger = LogManager.getLogger("controller-logger");
-
-
-    public Controller(TelegramRequestService telegramRequestService, TelegramChatMessageDTOMapper telegramChatMessageDTOMapper) {
-        this.telegramRequestService = telegramRequestService;
-        this.telegramChatMessageDTOMapper = telegramChatMessageDTOMapper;
-    }
 
 
     @PostMapping("/createAnswer")
