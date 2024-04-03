@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class TelegramChatMessageDTO {
 
-    private final long updateId;
-    private final long chatId;
+    private final Long updateId;
+    private final Long chatId;
     private final String message;
-    private final long userId;
+    private final Long userId;
     private final String role;
 }

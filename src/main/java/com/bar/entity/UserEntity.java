@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -47,26 +48,18 @@ public class UserEntity {
     )
     private String lastName;
 
-    @Column(
-            name = "email",
-            nullable = false,
-            columnDefinition = "TEXT",
-            unique = true
-    )
-    private String email;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    @Column(
-            name = "chat_id",
-            nullable = false
-    )
-    private Long chatId;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
-    public UserEntity(String username, String firstName, String lastName, String email, Long chatId) {
+    public UserEntity(String username, String firstName, String lastName) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
-        this.chatId = chatId;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     @Override
@@ -75,8 +68,6 @@ public class UserEntity {
                 "userId=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", chatId=" + chatId +
                 ", userName='" + username + '\'' +
                 '}';
     }

@@ -8,7 +8,6 @@ import com.bar.enums.Roles;
 import com.bar.mapper.TelegramChatResponseDTOMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.json.JSONException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,7 +16,6 @@ import java.io.IOException;
 @Log4j2
 @RequiredArgsConstructor
 public class TelegramRequestServiceImpl implements TelegramRequestService{
-
     private final MessageService messageService;
     private final ChatGPTRequestService chatGPTRequestService;
     private final TelegramChatResponseDTOMapper telegramChatResponseDTOMapper;
@@ -36,6 +34,7 @@ public class TelegramRequestServiceImpl implements TelegramRequestService{
                 requestTelegramChatMessageDTO.getChatId(),
                 chatGPTMessageDTO.getContent());
     }
+
 
     private void addChatGPTAnswerToConversation(TelegramChatMessageDTO requestTelegramChatMessageDTO,
                                                 ChatGPTMessageDTO chatGPTMessageDTO) {

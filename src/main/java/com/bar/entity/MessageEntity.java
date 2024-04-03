@@ -11,16 +11,9 @@ import lombok.Setter;
 @Entity(name = "MessageEntity")
 @Table(name = "messages")
 public class MessageEntity {
-
     @Id
-    @SequenceGenerator(
-            name = "message_sequence",
-            sequenceName = "message_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.IDENTITY,
-            generator = "message_sequence"
+            strategy = GenerationType.IDENTITY
     )
     @Column(
             name = "message_id",
@@ -50,30 +43,25 @@ public class MessageEntity {
     private String message;
 
     @Column(
-            name = "user_id",
-            nullable = false
-    )
-    private Long userId;
-
-    @Column(
             name = "role",
             nullable = false,
             columnDefinition = "TEXT"
     )
     private String role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",
-            referencedColumnName = "user_id",
-            insertable = false,
-            updatable = false)
-    private UserEntity user;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private AppUserEntity user;
 
-    public MessageEntity(Long updateId,Long chatId, String message, Long userId, String role) {
+    public MessageEntity(Long updateId,
+                         Long chatId,
+                         String message,
+                         AppUserEntity user,
+                         String role) {
         this.updateId = updateId;
         this.chatId = chatId;
         this.message = message;
-        this.userId = userId;
+        this.user = user;
         this.role = role;
     }
 
@@ -83,7 +71,7 @@ public class MessageEntity {
                 "updateId=" + updateId +
                 ", chatId=" + chatId +
                 ", message='" + message + '\'' +
-                ", userId=" + userId +
+                ", user=" + user +
                 ", appRole='" + role + '\'' +
                 '}';
     }
